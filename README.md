@@ -14,7 +14,7 @@ alias ap={abci-calc Directory}/target/release/abci-calc
 
 ## How to use
 ```
-ap {instance-name} {hours}h {minutes}m {seconds}s x{num-jobs}
+ap {instance-name} {days}d {hours}h {minutes}m {seconds}s x{num-jobs}
 ```
 
 - Glarge 3hours/job x6 jobs
