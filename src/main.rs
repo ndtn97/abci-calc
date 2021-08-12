@@ -105,7 +105,7 @@ fn main() {
 
     let point_total = point_single * num_jobs as f64;
 
-    println!("{} {}d{}h{}m{}s {}pts x{} Total {}d{}h{}m{}s {}pts", matched_instance, ds, hs, ms, ss, point_single, num_jobs, dt,ht,mt,st, point_total);
+    println!("{instance} Single: {ds}d{hs}h{ms}m{ss}s {ps:.2}pts x{nj} Total: {dt}d{ht}h{mt}m{st}s {pt:.2}pts", instance=matched_instance, ds=ds, hs=hs, ms=ms, ss=ss, ps=point_single, nj=num_jobs, dt=dt, ht=ht, mt=mt, st=st, pt=point_total);
 }
 
 
