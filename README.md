@@ -1,5 +1,5 @@
 # abci-calc
-simple abci point calculator
+simple abci point calculator for normal priority spot/on-demand jobs
 
 
 ## Build
