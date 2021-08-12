@@ -2,7 +2,6 @@ extern crate regex;
 use regex::Regex;
 use fuzzy_matcher::FuzzyMatcher;
 use fuzzy_matcher::skim::SkimMatcherV2;
-use std::io;
 use std::collections::HashMap;
 
 fn sec_to_dhms(s: u64) -> (u64, u64, u64, u64) {
@@ -95,12 +94,10 @@ fn parse_query(query: &str) -> (&str, u64, u64, f64) {
 
 
 fn main() {
-    let mut buffer = String::new();
-    io::stdin()
-        .read_line(&mut buffer)
-        .expect("Err");
+    let args: Vec<String> = std::env::args().collect();
+    let args = &args[1..].join(" ");
 
-    let (matched_instance, compute_time_single, num_jobs, point_single) = parse_query(&buffer);
+    let (matched_instance, compute_time_single, num_jobs, point_single) = parse_query(&args);
     let compute_time_total = compute_time_single * num_jobs;
 
     let (ds, hs, ms, ss) = sec_to_dhms(compute_time_single);
