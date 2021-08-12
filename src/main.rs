@@ -110,3 +110,61 @@ fn main() {
 
     println!("{} {}d{}h{}m{}s {}pts x{} Total {}d{}h{}m{}s {}pts", matched_instance, ds, hs, ms, ss, point_single, num_jobs, dt,ht,mt,st, point_total);
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use assert_approx_eq::assert_approx_eq;
+
+    #[test]
+    fn test_0() {
+        let query = "gsmall 1h";
+        let (ins, ct, nj, pt) = parse_query(&query);
+        assert_eq!(ins, "Gsmall");
+        assert_eq!(ct, 3600);
+        assert_eq!(nj, 1);
+        assert_approx_eq!(pt, 0.3);
+    }
+
+    #[test]
+    fn test_1() {
+        let query = "glarge 1h1m1s 1s 1h x2 x3 x1x2";
+        let (ins, ct, nj, pt) = parse_query(&query);
+        assert_eq!(ins, "Glarge");
+        assert_eq!(ct, 7262);
+        assert_eq!(nj, 12);
+        assert_approx_eq!(pt, 1.8155);
+    }
+
+    #[test]
+    fn test_2 () {
+        let query = "as 1h x2x3";
+        let (ins, ct, nj, pt) = parse_query(&query);
+        assert_eq!(ins, "AGsmall");
+        assert_eq!(ct, 3600);
+        assert_eq!(nj, 6);
+        assert_approx_eq!(pt, 0.5);
+    }
+
+    #[test]
+    fn test_3 () {
+        let query = "gl 1h x2x3";
+        let (ins, ct, nj, pt) = parse_query(&query);
+        assert_eq!(ins, "Glarge");
+        assert_eq!(ct, 3600);
+        assert_eq!(nj, 6);
+        assert_approx_eq!(pt, 0.9)
+    }
+
+    #[test]
+    fn test_4(){
+        let query = "1m x1x2 1h1s glarge 1s 1h x3 x2";
+        let (ins, ct, nj, pt) = parse_query(&query);
+        assert_eq!(ins, "Glarge");
+        assert_eq!(ct, 7262);
+        assert_eq!(nj, 12);
+        assert_approx_eq!(pt, 1.8155);
+    }
+
+}
